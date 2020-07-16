@@ -1,0 +1,37 @@
+make sure system is havaing 1.5G ram and 2 core (master)  prerequiests diabled firewall,selinux,swapspace
+
+yum install docker
+
+systemctl start docker
+
+systemctl enable docker
+
+cat kub.repo 
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+yum install kubeadm  -y
+
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sysctl --system
+
+kubeadm init --apiserver-advertise-address=192.168.56.101 --pod-network-cidr=10.244.0.0/16        ####make a copy of token u get after executing this commad
+
+AS ROOT USER execute below command
+
+#export KUBECONFIG=/etc/kubernetes/admin.conf
+
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+kubectl get nodes
+
+ kubectl get pods --all-namespaces

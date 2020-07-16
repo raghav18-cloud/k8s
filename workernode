@@ -1,0 +1,37 @@
+cat kube.repo 
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+#####
+cat <<EOF> kube.repo
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+#####
+
+
+yum install kubeadm
+
+systemctl enable  kubectl
+
+cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+
+kubeadm join 192.168.56.101:6443 --token 7s85hv.4qzej9w7vrdo6831     --discovery-token-ca-cert-hash sha256:ffd208641baeb9ff3488e0bc68fc881c6156fa54e73073c12fb6abcdaef6a9cc
+
+GO to master and see node joined
+
+kubect get nodes
+
+kubectl get pods --all-namespaces -o wide

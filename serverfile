@@ -31,7 +31,7 @@ EOF
 
 sysctl --system
 
-kubeadm init --apiserver-advertise-address=192.168.56.101 --pod-network-cidr=10.244.0.0/16        ####make a copy of token u get after executing this commad
+kubeadm init --apiserver-advertise-address=192.168.56.101 --pod-network-cidr=10.244.0.0/16        #make a copy of token u get after executing this commad and aipiserverip is u r serverip address
 
 AS ROOT USER execute below command
 

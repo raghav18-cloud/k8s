@@ -1,0 +1,41 @@
+node{
+
+ 
+
+  stage('Checkout') {
+
+    git 'https://github.com/edureka-git/DevOpsClassCodes'
+
+   
+
+  }
+
+ 
+
+  stage('Build') {
+
+      dir('') {
+
+        sh 'mvn -B -V -U -e clean package'
+
+    }
+
+  }
+
+
+ 
+
+stage('Deployment') {
+
+            // Deployment
+
+                script {
+
+                    echo "deployment"
+
+                    sh 'cp /var/lib/jenkins/workspace/try/target/addressbook.war /tmp'
+
+            }
+
+        }
+}

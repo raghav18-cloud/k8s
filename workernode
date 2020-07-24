@@ -25,6 +25,8 @@ yum install kubeadm
 
 systemctl enable kubelet.service
 
+systemctl start kubelet.service
+
 cat <<EOF > /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1

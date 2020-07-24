@@ -1,0 +1,176 @@
+server side
+##############
+[root@master test]# history 
+    1  vi /etc/fstab 
+    2  vi /etc/sysconfig/selinux 
+    3  cd /etc/sysconfig/
+    4  ls
+    5  cd network-scripts/
+    6  ls
+    7  vi ifcfg-enp0s3
+    8  vi ifcfg-enp0s8
+    9  init  6
+   10  ip a
+   11  free -h
+   12  hostnamectl set-hostame master.example.com
+   13  hostnamectl set-hostname master.example.com
+   14  free -h
+   15  cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+   16  cat <<EOF> kube.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+   17  yum install kubeadm
+   18  yum  install docker
+   19  yum install kubeadm
+   20  cd /etc/yum.repos.d/
+   21  ls
+   22  at <<EOF> kube.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+   23  cat <<EOF> kube.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+   24  yum install kubeadm
+   25  systemctl status docker
+   26  systemctl start docker
+   27  systemctl enable docker
+   28  systemctl enable kubelet.service
+   29  ip a
+   30  kubeadm init --apiserver-advertise-address=192.168.56.102 --pod-network-cidr=10.244.0.0/16 
+   31  systemctl stop firewalld
+   32  vi /etc/hosts
+   33  kubeadm init --apiserver-advertise-address=192.168.56.102 --pod-network-cidr=10.244.0.0/16 
+   34  vi /etc/hosts
+   35  export KUBECONFIG=/etc/kubernetes/admin.conf
+   36  sysctl --system
+   37  cat /etc/hosts
+   38  kubectl get nodes
+   39  kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+   40  kubectl get nodes
+   41  watch kubectl get nodes
+   42  kubectl get pods
+   43  kubectl get pods -n kube-system
+   44  systemctl disable firewalld
+   45  watch kubectl get nodes
+   46   kubectl get nodes
+   47  cd /
+   48  mkdir test
+   49  cd test/
+   50  ls
+   51  vi test.yaml
+   52  kubectl create -f test.yaml 
+   53  kubectl get po
+   54  kubectl delete test.yaml 
+   55  kubectl get deploymet
+   56  kubectl get deployment
+   57  kubectl delete deployment webapp1
+   58  vi test.yaml 
+   59  kubectl create -f test.yaml 
+   60  kubectl get po
+   61  watch kubectl get po
+   62  ip a
+   63  kubectl get po
+   64  cat test.yaml 
+   65  #docker pull saipavanseetha/deployimg:12
+   66  kubectl get po
+   67  vi svc.yaml
+   68  kubectl create -f svc.yaml 
+   69  kubectl get svc
+   
+   
+   
+   
+   ###############client##########
+   
+   [root@localhost yum.repos.d]# kubeadm join 192.168.56.102:6443 --token xnl89v.ddsoddn7bcisluy6 \
+>     --discovery-token-ca-cert-hash sha256:be68e90776c1c385ab82c3b25490ae230092e4b439b6fdd1b60ee102157bdb29 
+W0724 03:05:24.026073    1735 join.go:346] [preflight] WARNING: JoinControlPane.controlPlane settings will be ignored when control-plane flag is not set.
+[preflight] Running pre-flight checks
+	[WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.18" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+
+[root@localhost yum.repos.d]# systemctl stop firewalld
+[root@localhost yum.repos.d]# systemctl disable firewalld
+Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.
+Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.
+[root@localhost yum.repos.d]# history 
+    1  cd /etc/sysconfig/network-scripts/
+    2  vi ifcfg-enp0s3
+    3  vi ifcfg-enp0s8
+    4  vi /etc/sysconfig/selinux 
+    5  vi /etc/fstab 
+    6  init 6
+    7  yum install docker -y
+    8  systemctl start docker
+    9  systemctl enable docker
+   10  cat <<EOF > /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+   11  cat <<EOF> kube.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+   12  cd /etc/yum.repos.d/
+   13  cat <<EOF> kube.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+   14  sysctl --system
+   15  vi /etc/hosts
+   16  cat /etc/hosts
+   17  hostnamectl set-hostname client.example.com
+   18  yum install kubeadm
+   19  kubeadm join 192.168.56.102:6443 --token xnl89v.ddsoddn7bcisluy6     --discovery-token-ca-cert-hash sha256:be68e90776c1c385ab82c3b25490ae230092e4b439b6fdd1b60ee102157bdb29 
+   20  systemctl stop firewalld
+   21  systemctl disable firewalld

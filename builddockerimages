@@ -8,5 +8,5 @@ ADD addressbook.war  /usr/local/tomcat/webapps
 CMD "catalina.sh" "run"
 EXPOSE 8080
 EOT
-sudo docker build -t saipavanseetha/deployimg:$BUILD_NUMBER .
-sudo docker run -itd --name deploy-$BUILD_NUMBER -p 8080 saipavanseetha/deployimg:$BUILD_NUMBER
+sudo docker build -t raghav18/raghav_deploy18:$BUILD_NUMBER .
+sudo docker run -itd --name deploy-$BUILD_NUMBER -p 8080 raghav18/raghav_deploy18:$BUILD_NUMBER
